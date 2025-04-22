@@ -1,0 +1,77 @@
+{
+  "Version": 1,
+  "Hash": "gw231szWnNCrgYqJPopfS0lqaVkV4mzEjfd+UtunLIA=",
+  "Source": "FreelanceApi",
+  "BasePath": "_content/FreelanceApi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "FreelanceApi\\wwwroot",
+      "Source": "FreelanceApi",
+      "ContentRoot": "C:\\Users\\Owner\\Desktop\\Freelance-Full\\Server\\wwwroot\\",
+      "BasePath": "_content/FreelanceApi",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\Owner\\Desktop\\Freelance-Full\\Server\\wwwroot\\uploads\\a7784a27-e662-46f6-8b7b-409b6fd4f69f.jpg",
+      "SourceId": "FreelanceApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Owner\\Desktop\\Freelance-Full\\Server\\wwwroot\\",
+      "BasePath": "_content/FreelanceApi",
+      "RelativePath": "uploads/a7784a27-e662-46f6-8b7b-409b6fd4f69f.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\a7784a27-e662-46f6-8b7b-409b6fd4f69f.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Owner\\Desktop\\Freelance-Full\\Server\\wwwroot\\uploads\\de7d4ba0-0235-4496-a546-814f7d4054fe.jpg",
+      "SourceId": "FreelanceApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Owner\\Desktop\\Freelance-Full\\Server\\wwwroot\\",
+      "BasePath": "_content/FreelanceApi",
+      "RelativePath": "uploads/de7d4ba0-0235-4496-a546-814f7d4054fe.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\de7d4ba0-0235-4496-a546-814f7d4054fe.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Owner\\Desktop\\Freelance-Full\\Server\\wwwroot\\uploads\\ValuesController.cs",
+      "SourceId": "FreelanceApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Owner\\Desktop\\Freelance-Full\\Server\\wwwroot\\",
+      "BasePath": "_content/FreelanceApi",
+      "RelativePath": "uploads/ValuesController.cs",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\ValuesController.cs"
+    }
+  ]
+}

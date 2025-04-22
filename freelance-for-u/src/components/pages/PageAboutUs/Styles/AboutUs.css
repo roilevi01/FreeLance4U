@@ -1,0 +1,104 @@
+.about-us-page {
+  padding: 20px;
+  font-family: "Arial", sans-serif;
+  background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+  color: #343a40;
+  line-height: 1.6;
+}
+
+.page-title {
+  text-align: center;
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: #007bff;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  position: relative;
+  animation: fadeIn 1.5s ease-out;
+}
+
+.page-title::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  background-color: #007bff;
+  margin: 10px auto 0;
+  border-radius: 2px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeSlide {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.text-block {
+  font-size: 1.2rem;
+  color: #495057;
+  line-height: 1.8;
+  text-align: justify;
+  margin-bottom: 20px;
+  animation: fadeSlide 1s ease forwards;
+  opacity: 0;
+}
+
+.image-block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  animation: fadeSlide 1s ease forwards;
+  opacity: 0;
+}
+
+.image {
+  width: 100%;
+  max-width: 350px;
+  height: auto;
+  border-radius: 10px;
+  border: 4px solid #ffffff;
+  outline: 2px solid #007bff33;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.image:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+}
+
+@media screen and (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .page-title {
+    font-size: 2.5rem;
+  }
+  .text-block {
+    font-size: 1rem;
+  }
+}

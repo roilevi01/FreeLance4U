@@ -1,0 +1,33 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\Owner\\Desktop\\Freelance-Full\\Server\\wwwroot\\uploads\\ValuesController.cs",
+      "PackagePath": "staticwebassets\\uploads\\ValuesController.cs"
+    },
+    {
+      "Id": "C:\\Users\\Owner\\Desktop\\Freelance-Full\\Server\\wwwroot\\uploads\\a7784a27-e662-46f6-8b7b-409b6fd4f69f.jpg",
+      "PackagePath": "staticwebassets\\uploads\\a7784a27-e662-46f6-8b7b-409b6fd4f69f.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Owner\\Desktop\\Freelance-Full\\Server\\wwwroot\\uploads\\de7d4ba0-0235-4496-a546-814f7d4054fe.jpg",
+      "PackagePath": "staticwebassets\\uploads\\de7d4ba0-0235-4496-a546-814f7d4054fe.jpg"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.FreelanceApi.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.FreelanceApi.props",
+      "PackagePath": "build\\FreelanceApi.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.FreelanceApi.props",
+      "PackagePath": "buildMultiTargeting\\FreelanceApi.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.FreelanceApi.props",
+      "PackagePath": "buildTransitive\\FreelanceApi.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
