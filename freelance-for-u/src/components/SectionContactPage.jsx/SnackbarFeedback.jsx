@@ -1,4 +1,3 @@
-// src/components/Contact/SnackbarFeedback.jsx
 import { Snackbar, Alert } from "@mui/material";
 
 const SnackbarFeedback = ({ open, message, severity = "success", onClose }) => {

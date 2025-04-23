@@ -3,7 +3,6 @@ import { Email, LocationOn, PhoneCallback } from "@mui/icons-material";
 import { Navigate } from "react-router-dom";
 import FormLeftSide from "./FormLeftSide";
 
-// סגנונות
 const styles = {
   container: {
     display: "flex",
@@ -23,7 +22,6 @@ const styles = {
   },
 };
 
-// קומפוננטת צד שמאל
 function LeftSide() {
   return (
     <Box sx={styles.leftSide}>
@@ -84,7 +82,6 @@ function RightSide() {
           </Typography>
         </Box>
 
-        {/* גוגל מאפס */}
         <Box sx={{ marginTop: "20px" }}>
           <iframe
             width="80%"

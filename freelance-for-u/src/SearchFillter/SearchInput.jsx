@@ -12,7 +12,7 @@ const SearchInput = ({ value, onChange, onClear, isLoading }) => {
   return (
     <TextField
       fullWidth
-      label="Search Business"
+      label="Search"
       variant="outlined"
       value={value}
       onChange={onChange}

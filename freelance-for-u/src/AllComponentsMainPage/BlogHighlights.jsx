@@ -1,4 +1,3 @@
-// src/components/BlogHighlights.jsx
 import {
   Box,
   Card,

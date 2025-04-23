@@ -7,5 +7,5 @@
     public string? NewPassword { get; set; }
     public string? ConfirmPassword { get; set; }
 
-    public string? ProfilePicture { get; set; } // אם תרצה לשמור את זה בעתיד
+    public string? ProfilePicture { get; set; } 
 }

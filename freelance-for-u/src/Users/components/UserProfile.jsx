@@ -52,22 +52,8 @@ export default function UserProfile() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleImageUpload = async (formDataImage) => {
-    try {
-      const res = await api.post("/upload/profile-picture", formDataImage, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-      setFormData((prev) => ({ ...prev, profilePicture: res.data.imageUrl }));
-    } catch (err) {
-      console.error("Failed to upload image", err);
-      setSnackbar({
-        open: true,
-        message: "Image upload failed",
-        severity: "error",
-      });
-    }
+  const handleImageUpload = (base64Image) => {
+    setFormData((prev) => ({ ...prev, profilePicture: base64Image }));
   };
 
   const handleSubmit = async (e) => {
@@ -88,9 +74,12 @@ export default function UserProfile() {
   return (
     <>
       <NavBar />
-      <Grid container spacing={4}>
+      <Grid container spacing={4} p={4}>
         <Grid item xs={12} md={4}>
-          <ProfileImageUpload onImageUpload={handleImageUpload} />
+          <ProfileImageUpload
+            profilePicture={formData.profilePicture}
+            onImageChange={handleImageUpload}
+          />
         </Grid>
         <Grid item xs={12} md={8}>
           <UserDetailsForm

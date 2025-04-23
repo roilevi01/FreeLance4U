@@ -1,4 +1,3 @@
-// src/admin/components/AdminUserTable.jsx
 import React from "react";
 import {
   Table,
@@ -11,11 +10,12 @@ import {
   Box,
   IconButton,
   Tooltip,
+  Fade,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { getCurrentUser } from "../Services/authHelper";
 
-const AdminUserTable = ({ users, onDelete }) => {
+const AdminUserTable = ({ users, onDelete, formatDate }) => {
   const currentUser = getCurrentUser();
 
   return (
@@ -36,36 +36,28 @@ const AdminUserTable = ({ users, onDelete }) => {
           </TableHead>
           <TableBody>
             {users.map((user) => (
-              <TableRow key={user.id}>
-                <TableCell>{user.username}</TableCell>
-                <TableCell>{user.email}</TableCell>
-                <TableCell>{user.role}</TableCell>
-                <TableCell>
-                  {user.lastLogin
-                    ? new Date(user.lastLogin).toLocaleString()
-                    : "Never"}
-                </TableCell>
-                <TableCell align="center">
-                  {user.id !== currentUser?.id && (
-                    <Tooltip title="Delete User">
-                      <IconButton
-                        onClick={() => {
-                          if (
-                            window.confirm(
-                              "Are you sure you want to delete this user?"
-                            )
-                          ) {
-                            onDelete(user.id);
-                          }
-                        }}
-                        color="error"
-                      >
-                        <DeleteIcon />
-                      </IconButton>
-                    </Tooltip>
-                  )}
-                </TableCell>
-              </TableRow>
+              <Fade in={true} key={user.id} timeout={400}>
+                <TableRow>
+                  <TableCell>{user.username}</TableCell>
+                  <TableCell>{user.email}</TableCell>
+                  <TableCell>{user.role}</TableCell>
+                  <TableCell>
+                    {user.lastLogin ? formatDate(user.lastLogin) : "Never"}
+                  </TableCell>
+                  <TableCell align="center">
+                    {user.id !== currentUser?.id && (
+                      <Tooltip title="Delete User">
+                        <IconButton
+                          onClick={() => onDelete(user.id)}
+                          color="error"
+                        >
+                          <DeleteIcon />
+                        </IconButton>
+                      </Tooltip>
+                    )}
+                  </TableCell>
+                </TableRow>
+              </Fade>
             ))}
           </TableBody>
         </Table>

@@ -1,4 +1,3 @@
-// src/components/CustomerTestimonials.jsx
 import { Box, Typography, Avatar, Grid, Paper } from "@mui/material";
 
 const testimonials = [

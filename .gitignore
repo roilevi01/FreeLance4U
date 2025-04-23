@@ -1,0 +1,17 @@
+# Visual Studio cache
+.vs/
+*.user
+*.suo
+
+# Build folders
+bin/
+obj/
+
+# Node modules
+node_modules/
+
+# Secrets
+.env
+
+# Others
+uploads/

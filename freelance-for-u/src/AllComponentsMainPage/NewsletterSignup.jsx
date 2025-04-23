@@ -1,4 +1,3 @@
-// src/components/NewsletterSignup.jsx
 import { Box, Typography, TextField, Button } from "@mui/material";
 import { useState } from "react";
 
@@ -11,7 +10,6 @@ export default function NewsletterSignup() {
     if (email.trim()) {
       setSubmitted(true);
       setEmail("");
-      // אם בעתיד תשלח לשרת – תוכל להוסיף API POST כאן
     }
   };
 

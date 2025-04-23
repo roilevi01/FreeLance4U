@@ -14,23 +14,23 @@ namespace FreelanceAPI.Services
         public AuthService()
         {
             _jwtSecret = Environment.GetEnvironmentVariable("JWT_SECRET") ?? "DefaultSuperLongSecretKey123!";
-            Console.WriteLine($"🔹 JWT_SECRET: {_jwtSecret}"); // ✅ הדפס את המשתנה למסך
+            Console.WriteLine($"🔹 JWT_SECRET: {_jwtSecret}"); 
         }
 
 
-        // הצפנת סיסמה עם Bcrypt
+        
         public static string HashPassword(string password)
         {
             return BCrypt.Net.BCrypt.HashPassword(password);
         }
 
-        // בדיקת סיסמה בהשוואה ל-Hash
+        
         public static bool VerifyPassword(string enteredPassword, string hashedPassword)
         {
             return BCrypt.Net.BCrypt.Verify(enteredPassword, hashedPassword);
         }
 
-        // יצירת JWT Token
+        
         public string GenerateJwtToken(string userId, string role)
         {
             var tokenHandler = new JwtSecurityTokenHandler();

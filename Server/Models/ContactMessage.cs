@@ -1,6 +1,6 @@
 ﻿namespace FreelanceApi.Models
 {
-    // Models/ContactMessage.cs
+    
     public class ContactMessage
     {
         public int Id { get; set; }

@@ -1,75 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Box,
   Typography,
-  Grid2,
   TextField,
   Button,
+  Snackbar,
   CircularProgress,
   Tooltip,
 } from "@mui/material";
 import { Send, Email, Phone, Person } from "@mui/icons-material";
-import * as yup from "yup";
-import { useFormik } from "formik";
-import ContactApiService from "./ContactApiService";
-import SnackbarFeedback from "./SnackbarFeedback";
-import InputAdornment from "@mui/material/InputAdornment";
+import { Grid2 } from "@mui/material";
 
-// Schema לולידציה באמצעות Yup
-const validationSchema = yup.object({
-  name: yup.string().required("Name is required").min(3, "Name is too short"),
-  email: yup
-    .string()
-    .email("Enter a valid email")
-    .required("Email is required"),
-  phone: yup
-    .string()
-    .matches(/^[0-9]+$/, "Phone number must contain only digits")
-    .required("Phone number is required"),
-  message: yup
-    .string()
-    .required("Message is required")
-    .min(10, "Message must be at least 10 characters"),
-});
+import useContactFormLogic from "../../hooks/useContactFormLogic";
 
 export default function FormLeftSide() {
-  const [loading, setLoading] = useState(false);
-  const [snackbar, setSnackbar] = useState({
-    open: false,
-    message: "",
-    severity: "success",
-  });
-
-  const formik = useFormik({
-    initialValues: {
-      name: "",
-      email: "",
-      phone: "",
-      message: "",
-    },
-    validationSchema: validationSchema,
-    onSubmit: async (values, { resetForm }) => {
-      setLoading(true);
-      try {
-        await ContactApiService.sendContactMessage(values);
-        setSnackbar({
-          open: true,
-          message: "Message sent successfully!",
-          severity: "success",
-        });
-        resetForm();
-      } catch (error) {
-        setSnackbar({
-          open: true,
-          message: "Failed to send message",
-          severity: "error",
-        });
-        console.error("Contact form error:", error);
-      } finally {
-        setLoading(false);
-      }
-    },
-  });
+  const { formik, loading, success, setSuccess } = useContactFormLogic();
 
   return (
     <Box
@@ -109,11 +54,7 @@ export default function FormLeftSide() {
                 error={formik.touched.name && Boolean(formik.errors.name)}
                 helperText={formik.touched.name && formik.errors.name}
                 InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <Person sx={{ color: "gray" }} />
-                    </InputAdornment>
-                  ),
+                  startAdornment: <Person sx={{ color: "gray", mr: 1 }} />,
                 }}
                 sx={{ "& .MuiInputBase-root": { height: "50px" } }}
               />
@@ -134,11 +75,7 @@ export default function FormLeftSide() {
                 error={formik.touched.email && Boolean(formik.errors.email)}
                 helperText={formik.touched.email && formik.errors.email}
                 InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <Email sx={{ color: "gray" }} />
-                    </InputAdornment>
-                  ),
+                  startAdornment: <Email sx={{ color: "gray", mr: 1 }} />,
                 }}
                 sx={{ "& .MuiInputBase-root": { height: "50px" } }}
               />
@@ -159,11 +96,7 @@ export default function FormLeftSide() {
                 error={formik.touched.phone && Boolean(formik.errors.phone)}
                 helperText={formik.touched.phone && formik.errors.phone}
                 InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <Phone sx={{ color: "gray" }} />
-                    </InputAdornment>
-                  ),
+                  startAdornment: <Phone sx={{ color: "gray", mr: 1 }} />,
                 }}
                 sx={{ "& .MuiInputBase-root": { height: "50px" } }}
               />
@@ -216,11 +149,18 @@ export default function FormLeftSide() {
         </Grid2>
       </form>
 
-      <SnackbarFeedback
-        open={snackbar.open}
-        message={snackbar.message}
-        severity={snackbar.severity}
-        onClose={() => setSnackbar({ ...snackbar, open: false })}
+      <Snackbar
+        open={success}
+        autoHideDuration={3000}
+        onClose={() => setSuccess(false)}
+        message="Message sent successfully!"
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        sx={{
+          "& .MuiSnackbarContent-root": {
+            backgroundColor: "#4caf50",
+            color: "#fff",
+          },
+        }}
       />
     </Box>
   );

@@ -1,12 +1,9 @@
-// src/components/User/ProfileImageUpload.jsx
 import { useState, useEffect } from "react";
 import { Box, Button, Avatar, Typography } from "@mui/material";
-import api from "../../Services/api";
 
 const ProfileImageUpload = ({ profilePicture, onImageChange }) => {
   const [preview, setPreview] = useState(null);
 
-  // ✅ לעדכן preview כשהתמונה משתנה מבחוץ (מהשרת)
   useEffect(() => {
     setPreview(profilePicture || null);
   }, [profilePicture]);
@@ -17,7 +14,7 @@ const ProfileImageUpload = ({ profilePicture, onImageChange }) => {
       const reader = new FileReader();
       reader.onloadend = () => {
         setPreview(reader.result);
-        onImageChange(reader.result); // שולח את base64 חזרה לקומפוננטת האב
+        onImageChange(reader.result);
       };
       reader.readAsDataURL(file);
     }
@@ -37,7 +34,7 @@ const ProfileImageUpload = ({ profilePicture, onImageChange }) => {
         Profile Picture
       </Typography>
       <Avatar
-        src={preview}
+        src={preview || "/assets/default-avatar.png"}
         alt="Profile"
         sx={{ width: 100, height: 100, margin: "0 auto" }}
       />

@@ -10,7 +10,7 @@ namespace FreelanceAPI.Models
         public Guid Id { get; set; }
 
         [Required]
-        public Guid UserId { get; set; } // המשתמש שיצר את הכרטיס
+        public Guid UserId { get; set; } 
 
         [Required, MaxLength(100)]
         public string BusinessName { get; set; } = string.Empty;
@@ -22,10 +22,10 @@ namespace FreelanceAPI.Models
         public string ContactInfo { get; set; } = string.Empty;
 
         [MaxLength(500)]
-        public string? BusinessImage { get; set; } // תמונה של העסק (אופציונלי)
+        public string? BusinessImage { get; set; } 
 
         [Required, MaxLength(20)]
-        public string PhoneNumber { get; set; } = string.Empty; // מספר טלפון של העסק
+        public string PhoneNumber { get; set; } = string.Empty; 
 
         [ForeignKey("UserId")]
         public User? User { get; set; }

@@ -27,7 +27,7 @@ const CreateBusinessCardPage = () => {
     try {
       await api.post("/businesscards/create", formData);
       alert("Business card created successfully!");
-      navigate(ROUTES.USER_CARDS); // ניתוב לעמוד הצגת הכרטיסים
+      navigate(ROUTES.USER_CARDS);
     } catch (err) {
       setError(err.response?.data || "An error occurred");
     }

@@ -1,4 +1,3 @@
-// src/components/ServiceCategories.jsx
 import { Box, Grid, Paper, Typography } from "@mui/material";
 import WebIcon from "@mui/icons-material/Language";
 import DesignServicesIcon from "@mui/icons-material/DesignServices";

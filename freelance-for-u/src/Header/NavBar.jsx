@@ -1,38 +1,51 @@
 import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  IconButton,
+  Typography,
+  Menu,
+  Container,
+  Avatar,
+  Button,
+  Tooltip,
+  MenuItem,
+} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
-import ROUTES from "../routes/routesModel";
-import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
 import { Facebook, Instagram, LinkedIn, Twitter } from "@mui/icons-material";
-import { getCurrentUser } from "../Services/authHelper";
-import { Link } from "react-router-dom";
-import { isAdmin } from "../Services/authHelper";
+import { useNavigate } from "react-router-dom";
+import ROUTES from "../routes/routesModel";
+import { getCurrentUser, isAdmin } from "../Services/authHelper";
 
-export default function NavBar() {
+const NavBar = () => {
   const navigate = useNavigate();
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [profilePicture, setProfilePicture] = useState("");
+  const user = getCurrentUser();
 
-  const handleNavigate = (route) => {
-    navigate(route);
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [profilePicture, setProfilePicture] = React.useState("");
+
+  React.useEffect(() => {
+    const stored = localStorage.getItem("profilePicture");
+    if (stored) setProfilePicture(stored);
+  }, []);
+
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
   };
-  const handleOpenMenu = (event) => {
-    setAnchorEl(event.currentTarget);
+
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
   };
-  const handleCloseMenu = () => {
-    setAnchorEl(null);
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
   };
 
   const logout = () => {
@@ -42,12 +55,10 @@ export default function NavBar() {
     navigate(ROUTES.LOGIN);
   };
 
-  useEffect(() => {
-    const storedImage = localStorage.getItem("profilePicture");
-    if (storedImage) setProfilePicture(storedImage);
-  }, []);
-
-  const user = getCurrentUser();
+  const navLinks = [
+    { label: "Contact", route: ROUTES.CONNECT },
+    { label: "About Us", route: ROUTES.ABOUT },
+  ];
 
   return (
     <AppBar position="static">
@@ -55,7 +66,7 @@ export default function NavBar() {
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <Typography
-            onClick={() => handleNavigate(ROUTES.ROOT)}
+            onClick={() => navigate(ROUTES.ROOT)}
             variant="h6"
             noWrap
             sx={{
@@ -73,125 +84,130 @@ export default function NavBar() {
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton size="large" color="inherit">
+            <IconButton
+              size="large"
+              aria-label="open navigation menu"
+              onClick={handleOpenNavMenu}
+              color="inherit"
+            >
               <MenuIcon />
             </IconButton>
+
             <Menu
-              id="menu-appbar"
+              anchorEl={anchorElNav}
               anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
-              keepMounted
               transformOrigin={{ vertical: "top", horizontal: "left" }}
+              open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
               sx={{ display: { xs: "block", md: "none" } }}
             >
-              <MenuItem onClick={() => handleNavigate(ROUTES.CONNECT)}>
-                <Typography sx={{ textAlign: "center" }}>Contact</Typography>
-              </MenuItem>
-              <MenuItem onClick={() => handleNavigate(ROUTES.ABOUT)}>
-                <Typography sx={{ textAlign: "center" }}>About Us</Typography>
-              </MenuItem>
-              <MenuItem onClick={() => handleNavigate(ROUTES.BLOG)}>
-                <Typography sx={{ textAlign: "center" }}>Blog</Typography>
-              </MenuItem>
+              {navLinks.map((page) => (
+                <MenuItem
+                  key={page.label}
+                  onClick={() => {
+                    navigate(page.route);
+                    handleCloseNavMenu();
+                  }}
+                >
+                  <Typography textAlign="center">{page.label}</Typography>
+                </MenuItem>
+              ))}
             </Menu>
           </Box>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            <Button
-              onClick={() => handleNavigate(ROUTES.CONNECT)}
-              sx={{ my: 2, color: "white" }}
-            >
-              Contact
-            </Button>
-            <Button
-              onClick={() => handleNavigate(ROUTES.ABOUT)}
-              sx={{ my: 2, color: "white" }}
-            >
-              About Us
-            </Button>
+          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+          <Typography
+            onClick={() => navigate(ROUTES.ROOT)}
+            variant="h5"
+            noWrap
+            sx={{
+              mr: 2,
+              display: { xs: "flex", md: "none" },
+              flexGrow: 1,
+              fontFamily: "monospace",
+              fontWeight: 700,
+              letterSpacing: ".3rem",
+              color: "inherit",
+              textDecoration: "none",
+              cursor: "pointer",
+            }}
+          >
+            Freelance4U
+          </Typography>
 
-            {user?.role === "User" || user?.role === "Admin" ? (
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+            {navLinks.map((page) => (
               <Button
-                onClick={() => handleNavigate(ROUTES.USER_CARDS)}
+                key={page.label}
+                onClick={() => navigate(page.route)}
+                sx={{ my: 2, color: "white", display: "block" }}
+              >
+                {page.label}
+              </Button>
+            ))}
+            {user && (
+              <Button
+                onClick={() => navigate(ROUTES.USER_CARDS)}
                 sx={{ my: 2, color: "white" }}
               >
                 Jobs
               </Button>
-            ) : null}
-
+            )}
             {isAdmin() && (
               <Button
-                component={Link}
-                to="/admin/users"
+                onClick={() => navigate(ROUTES.MANAGE_USERES)}
                 sx={{ my: 2, color: "white" }}
               >
                 Manage Users
               </Button>
             )}
+            {user && (
+              <Button
+                onClick={() => navigate(ROUTES.CREATE_CARD)}
+                sx={{ my: 2, color: "white" }}
+              >
+                Create Card
+              </Button>
+            )}
+          </Box>
 
-            <Button
-              onClick={() => handleNavigate(ROUTES.CREATE_CARD)}
-              sx={{ my: 2, color: "white" }}
-            >
-              Create Card
-            </Button>
-            <IconButton sx={{ marginLeft: 5 }}>
-              <Facebook style={{ color: "#FFFFFF" }} />
-            </IconButton>
-            <IconButton>
-              <Instagram style={{ color: "#ffffff" }} />
-            </IconButton>
-            <IconButton>
-              <Twitter style={{ color: "#FFFFFf" }} />
-            </IconButton>
-            <IconButton>
-              <LinkedIn style={{ color: "#FFFFFF" }} />
-            </IconButton>
+          <Box sx={{ display: "flex", gap: 1, marginRight: 2 }}>
+            <Facebook style={{ color: "#fff" }} />
+            <Instagram style={{ color: "#fff" }} />
+            <Twitter style={{ color: "#fff" }} />
+            <LinkedIn style={{ color: "#fff" }} />
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenMenu} sx={{ p: 0 }}>
+            <Tooltip title="Profile">
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar
-                  alt="User Avatar"
-                  src={profilePicture || "/default-avatar.png"}
+                  src={profilePicture || "/assets/default-avatar.png"}
+                  alt="user"
                 />
               </IconButton>
             </Tooltip>
             <Menu
-              id="menu-appbar"
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={handleCloseMenu}
-              anchorOrigin={{ vertical: "top", horizontal: "right" }}
-              transformOrigin={{ vertical: "top", horizontal: "right" }}
+              sx={{ mt: "45px" }}
+              anchorEl={anchorElUser}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
             >
               <MenuItem
                 onClick={() => {
                   navigate(ROUTES.USER_PROFILE);
-                  handleCloseMenu();
+                  handleCloseUserMenu();
                 }}
               >
-                <Typography>Profile</Typography>
-              </MenuItem>
-              <MenuItem onClick={handleCloseMenu}>
-                <Typography>Account</Typography>
+                <Typography textAlign="center">Profile</Typography>
               </MenuItem>
               <MenuItem
                 onClick={() => {
-                  console.log("Dashboard clicked");
-                  handleCloseMenu();
-                }}
-              >
-                <Typography>Dashboard</Typography>
-              </MenuItem>
-              <MenuItem
-                onClick={() => {
-                  navigate(ROUTES.SIGNUP);
                   logout();
-                  handleCloseMenu();
+                  handleCloseUserMenu();
                 }}
               >
-                <Typography>Logout</Typography>
+                <Typography textAlign="center">Logout</Typography>
               </MenuItem>
             </Menu>
           </Box>
@@ -199,4 +215,6 @@ export default function NavBar() {
       </Container>
     </AppBar>
   );
-}
+};
+
+export default NavBar;

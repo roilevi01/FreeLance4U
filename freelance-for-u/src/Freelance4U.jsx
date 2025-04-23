@@ -1,8 +1,6 @@
-// src/pages/Freelance4U.jsx
 import NavBar from "./Header/NavBar";
 import FooterBar from "./Footer/FooterBar";
 import CustomerTestimonials from "./AllComponentsMainPage/CustomerTestimonials";
-import GlobalMetric from "./AllComponentsMainPage/GlobalMetric";
 import AboutUsFreelanceSection from "./components/SectionFreelanceAboutUs/AboutUsFreelanceSection";
 import FeaturesShowcase from "./AllComponentsMainPage/FeaturesShowcase";
 import TestimonialsSection from "./AllComponentsMainPage/TestimonialsSection";

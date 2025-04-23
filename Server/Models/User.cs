@@ -15,7 +15,7 @@ namespace FreelanceAPI.Models
         public string Email { get; set; }
 
         [Required]
-        public string PasswordHash { get; set; }  // סיסמה מוצפנת
+        public string PasswordHash { get; set; }  
 
         public string? ProfilePicture { get; set; }
 

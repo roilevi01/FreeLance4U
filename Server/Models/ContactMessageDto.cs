@@ -1,6 +1,6 @@
 ﻿namespace FreelanceApi.Models
 {
-    // Dtos/ContactMessageDto.cs
+    
     public class ContactMessageDto
     {
         public string Name { get; set; } = null!;

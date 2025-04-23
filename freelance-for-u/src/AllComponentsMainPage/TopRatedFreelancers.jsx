@@ -1,4 +1,3 @@
-// src/components/TopRatedFreelancers.jsx
 import {
   Box,
   Card,

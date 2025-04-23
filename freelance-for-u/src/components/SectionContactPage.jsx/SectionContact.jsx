@@ -10,11 +10,10 @@ export default function SectionContact() {
         justifyContent: "space-between",
         alignItems: "center",
         padding: "20px",
-        backgroundColor: "#dc6601", // צבע כתום
+        backgroundColor: "#dc6601",
         color: "white",
       }}
     >
-      {/* חלק הטקסט */}
       <Box>
         <Typography variant="h4" component="h2" sx={{ fontFamily: "fantasy" }}>
           Our <span style={{ color: "black" }}>Newsletters</span>
@@ -25,7 +24,6 @@ export default function SectionContact() {
         </Typography>
       </Box>
 
-      {/* חלק הטופס */}
       <Box sx={{ display: "flex", alignItems: "center" }}>
         <TextField
           variant="outlined"

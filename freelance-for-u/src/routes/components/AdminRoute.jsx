@@ -11,9 +11,7 @@ const AdminRoute = ({ children }) => {
 
   try {
     const decoded = jwtDecode(token);
-    console.log("Decoded token:", decoded);
 
-    // בדיקה אם ה-role הוא Admin
     return decoded.role === "Admin" ? children : <Navigate to="/" />;
   } catch (error) {
     console.error("JWT decode error:", error);

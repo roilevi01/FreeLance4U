@@ -1,4 +1,3 @@
-// src/components/CallToActionBanner.jsx
 import { Box, Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import ROUTES from "../routes/routesModel";

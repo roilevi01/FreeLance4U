@@ -1,13 +1,12 @@
-const normalizeText = (text) => {
-  return text
+const normalizeText = (text) =>
+  text
     .toString()
     .normalize("NFD")
     .replace(/\p{Diacritic}/gu, "")
     .replace(/["'`]/g, "")
     .toLowerCase();
-};
 
-const useSearchFilter = (data, query, fields) => {
+const useSearchFilter = (query, data, fields) => {
   const normalizedQuery = normalizeText(query);
 
   if (!normalizedQuery) return data;

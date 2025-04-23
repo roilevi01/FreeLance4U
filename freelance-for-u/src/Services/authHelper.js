@@ -1,4 +1,3 @@
-// src/utils/authHelper.js
 import { jwtDecode } from "jwt-decode";
 
 export const getCurrentUser = () => {

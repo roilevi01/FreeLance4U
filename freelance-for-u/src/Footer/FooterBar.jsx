@@ -1,4 +1,3 @@
-// src/components/FooterBar.jsx
 import {
   Box,
   Container,

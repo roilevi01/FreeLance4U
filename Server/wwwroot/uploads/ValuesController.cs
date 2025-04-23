@@ -25,14 +25,14 @@ namespace FreelanceAPI.Controllers
             if (file == null || file.Length == 0)
                 return BadRequest("No file uploaded.");
 
-            // רק קבצי תמונה מותרים
+            
             var allowedExtensions = new[] { ".jpg", ".jpeg", ".png" };
             var extension = Path.GetExtension(file.FileName).ToLower();
 
             if (!Array.Exists(allowedExtensions, ext => ext == extension))
                 return BadRequest("Only JPG and PNG files are allowed.");
 
-            // שם קובץ ייחודי
+            
             var fileName = $"{Guid.NewGuid()}{extension}";
             var uploadsPath = Path.Combine(_env.WebRootPath, "uploads");
 

@@ -1,12 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using FreelanceAPI.Data;
+﻿using FreelanceAPI.Data;
 using FreelanceAPI.Models;
 using FreelanceAPI.Services;
-using System.Linq;
-using System.Security.Claims;
-using FreelanceAPI.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace FreelanceAPI.Controllers
 {
@@ -17,20 +15,22 @@ namespace FreelanceAPI.Controllers
     {
         private readonly AppDbContext _context;
         private readonly AuthService _authService;
+        private readonly ILogger<UserController> _logger;
 
-        public UserController(AppDbContext context, AuthService authService)
+        public UserController(AppDbContext context, AuthService authService, ILogger<UserController> logger)
         {
             _context = context;
             _authService = authService;
+            _logger = logger;
         }
 
-        // ✅ רישום משתמש חדש - פתוח לכולם
         [HttpPost("register")]
         [AllowAnonymous]
         public IActionResult Register([FromBody] User user)
         {
             if (_context.Users.Any(u => u.Email == user.Email))
             {
+                _logger.LogWarning("Attempted registration with existing email: {Email}", user.Email);
                 return BadRequest(new { message = "Email already exists" });
             }
 
@@ -41,10 +41,10 @@ namespace FreelanceAPI.Controllers
             _context.Users.Add(user);
             _context.SaveChanges();
 
+            _logger.LogInformation("New user registered: {Email}", user.Email);
             return Ok(new { message = "User registered successfully" });
         }
 
-        // ✅ התחברות משתמש - פתוח לכולם
         [HttpPost("login")]
         [AllowAnonymous]
         public IActionResult Login([FromBody] LoginRequest loginRequest)
@@ -52,26 +52,25 @@ namespace FreelanceAPI.Controllers
             var user = _context.Users.FirstOrDefault(u => u.Email == loginRequest.Email);
             if (user == null || !AuthService.VerifyPassword(loginRequest.Password, user.PasswordHash))
             {
+                _logger.LogWarning("Failed login attempt for email: {Email}", loginRequest.Email);
                 return Unauthorized("Invalid email or password");
             }
 
-            // ✅ עדכון זמן התחברות אחרון
             user.LastLogin = DateTime.Now;
             _context.SaveChanges();
 
             var token = _authService.GenerateJwtToken(user.Id.ToString(), user.Role);
+            _logger.LogInformation("User logged in: {Email}", user.Email);
             return Ok(new { token });
         }
 
-
-        // ✅ עדכון פרטי משתמש - כל משתמש יכול לעדכן את עצמו בלבד, מנהל יכול לעדכן כל משתמש
         [HttpPut("update/{id}")]
-        [Authorize]
         public IActionResult UpdateUser(Guid id, [FromBody] UpdateUserDto updatedUserDto)
         {
             var user = _context.Users.FirstOrDefault(u => u.Id == id);
             if (user == null)
             {
+                _logger.LogWarning("Attempt to update non-existent user with ID: {UserId}", id);
                 return NotFound("User not found");
             }
 
@@ -80,39 +79,35 @@ namespace FreelanceAPI.Controllers
 
             if (userId != user.Id.ToString() && userRole != "Admin")
             {
+                _logger.LogWarning("Unauthorized update attempt by user {UserId}", userId);
                 return Forbid("You do not have permission to modify this user.");
             }
 
-            // עדכון שם משתמש ואימייל
             if (!string.IsNullOrWhiteSpace(updatedUserDto.Username))
                 user.Username = updatedUserDto.Username;
             if (!string.IsNullOrWhiteSpace(updatedUserDto.Email))
                 user.Email = updatedUserDto.Email;
 
-            // שינוי סיסמה
             if (!string.IsNullOrWhiteSpace(updatedUserDto.CurrentPassword) &&
                 !string.IsNullOrWhiteSpace(updatedUserDto.NewPassword) &&
                 !string.IsNullOrWhiteSpace(updatedUserDto.ConfirmPassword))
             {
                 if (!AuthService.VerifyPassword(updatedUserDto.CurrentPassword, user.PasswordHash))
-                {
                     return BadRequest("Current password is incorrect.");
-                }
 
                 if (updatedUserDto.NewPassword != updatedUserDto.ConfirmPassword)
-                {
                     return BadRequest("New password and confirmation do not match.");
-                }
 
                 user.PasswordHash = AuthService.HashPassword(updatedUserDto.NewPassword);
             }
 
             _context.Users.Update(user);
             _context.SaveChanges();
+
+            _logger.LogInformation("User {UserId} updated their profile", user.Id);
             return Ok(new { message = "User updated successfully." });
         }
 
-        // ✅ מחיקת משתמש - רק המנהל יכול למחוק משתמשים, לא את עצמו
         [HttpDelete("delete/{id}")]
         [Authorize(Roles = "Admin")]
         public IActionResult DeleteUser(Guid id)
@@ -120,17 +115,21 @@ namespace FreelanceAPI.Controllers
             var user = _context.Users.FirstOrDefault(u => u.Id == id);
             if (user == null)
             {
+                _logger.LogWarning("Admin attempted to delete non-existent user: {UserId}", id);
                 return NotFound("User not found");
             }
 
             var loggedInUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (loggedInUserId == user.Id.ToString())
             {
+                _logger.LogWarning("Admin tried to delete their own account");
                 return BadRequest("Admin cannot delete their own account.");
             }
 
             _context.Users.Remove(user);
             _context.SaveChanges();
+
+            _logger.LogInformation("Admin deleted user {UserId}", user.Id);
             return Ok(new { message = "User deleted successfully" });
         }
 
@@ -149,18 +148,18 @@ namespace FreelanceAPI.Controllers
                 })
                 .ToListAsync();
 
+            _logger.LogInformation("Admin fetched all users list.");
             return Ok(users);
         }
 
-
-
-
         [HttpPost("upload-image")]
-        [Authorize]
         public async Task<IActionResult> UploadProfileImage(IFormFile image)
         {
             if (image == null || image.Length == 0)
+            {
+                _logger.LogWarning("Upload failed: empty image.");
                 return BadRequest("No image uploaded.");
+            }
 
             var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
             if (!Directory.Exists(uploadsFolder))
@@ -177,18 +176,21 @@ namespace FreelanceAPI.Controllers
             var baseUrl = $"{Request.Scheme}://{Request.Host}";
             var imageUrl = $"{baseUrl}/uploads/{fileName}";
 
+            _logger.LogInformation("Profile image uploaded: {ImageUrl}", imageUrl);
             return Ok(new { imageUrl });
         }
 
-        // ✅ קבלת פרטי משתמש לפי ID
         [HttpGet("profile/{id}")]
-        [Authorize]
         public IActionResult GetUserProfile(Guid id)
         {
             var user = _context.Users.FirstOrDefault(u => u.Id == id);
             if (user == null)
+            {
+                _logger.LogWarning("User profile not found for ID: {UserId}", id);
                 return NotFound("User not found");
+            }
 
+            _logger.LogInformation("User profile fetched for ID: {UserId}", id);
             return Ok(new
             {
                 user.Username,
@@ -196,7 +198,5 @@ namespace FreelanceAPI.Controllers
                 user.ProfilePicture
             });
         }
-
-
     }
 }

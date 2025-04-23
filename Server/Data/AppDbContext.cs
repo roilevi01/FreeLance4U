@@ -13,23 +13,23 @@ namespace FreelanceAPI.Data
         public DbSet<BusinessCard> BusinessCards { get; set; }
         public DbSet<Like> Likes { get; set; } 
         public DbSet<Comment> Comments { get; set; }
-        // Data/AppDbContext.cs
+        
         public DbSet<ContactMessage> ContactMessages { get; set; }
 
 
-        // ✅ הוספת טבלת כרטיסי הביקור
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            // קשר בין BusinessCards ל-User (נשאר Cascade)
+            
             modelBuilder.Entity<BusinessCard>()
                 .HasOne(b => b.User)
                 .WithMany()
                 .HasForeignKey(b => b.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // קשר בין Comments ל-User - נשתמש ב-NoAction כדי למנוע multiple cascade paths
+            
             modelBuilder.Entity<Comment>()
                 .HasOne(c => c.User)
                 .WithMany()
@@ -42,7 +42,7 @@ namespace FreelanceAPI.Data
                 .HasForeignKey(c => c.BusinessCardId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // גם ל-Like אם יש קשר דומה
+            
             modelBuilder.Entity<Like>()
                 .HasOne(l => l.User)
                 .WithMany()

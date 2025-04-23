@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FreelanceApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c68a1c12c6c61e014f0ac720c02df9b38af4d9b7")]
 [assembly: System.Reflection.AssemblyProductAttribute("FreelanceApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FreelanceApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

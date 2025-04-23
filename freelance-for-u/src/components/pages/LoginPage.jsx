@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import { motion } from "framer-motion";
 import ROUTES from "../../routes/routesModel";
+import GoogleLoginButton from "../../GoogleLogin/GoogleLoginButton";
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -114,10 +115,24 @@ const LoginPage = () => {
             </Button>
           </Box>
 
-          {/* קישורים */}
+          {/* הפרדה ויזואלית */}
+          <Box my={3}>
+            <Typography
+              align="center"
+              variant="subtitle2"
+              color="text.secondary"
+            >
+              OR
+            </Typography>
+          </Box>
+
+          {/* כפתור גוגל ממורכז */}
+          <Box display="flex" justifyContent="center" mb={2}>
+            <GoogleLoginButton />
+          </Box>
+
           <Box display="flex" justifyContent="space-between" mt={2}>
             <Link
-              href="#"
               underline="hover"
               sx={{
                 color: darkMode ? "#90caf9" : "#1976d2",
@@ -135,7 +150,7 @@ const LoginPage = () => {
               }}
               onClick={() => navigate(ROUTES.SIGNUP)}
             >
-              Don't have an account? Sign Up
+              Don’t have an account? Sign Up
             </Link>
           </Box>
         </Paper>

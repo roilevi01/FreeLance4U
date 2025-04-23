@@ -1,4 +1,3 @@
-// src/pages/RegisterPage.jsx
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -14,8 +13,8 @@ import {
   Container,
 } from "@mui/material";
 import { motion } from "framer-motion";
-import LeftAd from "../../Ads Components/LeftAd";
-import RightAd from "../../Ads Components/RightAd";
+import LeftAd from "../../AdsComponents/LeftAd";
+import RightAd from "../../AdsComponents/RightAd";
 
 const RegisterPage = () => {
   const [formData, setFormData] = useState({

@@ -6,7 +6,6 @@ import TextBlock from "./TextBlock";
 const GridComponent = () => {
   return (
     <Grid2 container spacing={3} justifyContent="center" alignItems="center">
-      {/* Row 1 */}
       <Grid2 item xs={12} md={6}>
         <TextBlock text="We believe in the power of collaboration. Our platform connects employers and freelancers through trust and mutual respect, creating successful partnerships." />
       </Grid2>
@@ -17,7 +16,6 @@ const GridComponent = () => {
         />
       </Grid2>
 
-      {/* Row 2 */}
       <Grid2 item xs={12} md={6} order={{ xs: 2, md: 1 }}>
         <ImageBlock src="/assets/teammeeting.png" alt="team" />
       </Grid2>
@@ -25,7 +23,6 @@ const GridComponent = () => {
         <TextBlock text="Meet the team behind Freelance For You. We’re a dedicated group of professionals working hard to ensure both employers and freelancers experience smooth, seamless interactions." />
       </Grid2>
 
-      {/* Row 3 */}
       <Grid2 item xs={12} md={6}>
         <TextBlock text="Led by Shenik Meritz, our founder and CEO, we are committed to providing a platform where opportunities are accessible, and success is within reach for both freelancers and employers." />
       </Grid2>
@@ -33,7 +30,6 @@ const GridComponent = () => {
         <ImageBlock src="/assets/manegment.png" alt="management" />
       </Grid2>
 
-      {/* CTA Button */}
       <Grid2 item xs={12} style={{ textAlign: "center", marginTop: "40px" }}>
         <button
           style={{

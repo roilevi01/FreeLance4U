@@ -1,4 +1,3 @@
-// src/components/ClientLogosMarquee.jsx
 import { Box, Typography } from "@mui/material";
 import Marquee from "react-fast-marquee";
 
