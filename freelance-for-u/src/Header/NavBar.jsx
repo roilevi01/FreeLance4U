@@ -58,6 +58,7 @@ const NavBar = () => {
   const navLinks = [
     { label: "Contact", route: ROUTES.CONNECT },
     { label: "About Us", route: ROUTES.ABOUT },
+    { label: "Create Cards", route: ROUTES.CREATE_CARD },
   ];
 
   return (

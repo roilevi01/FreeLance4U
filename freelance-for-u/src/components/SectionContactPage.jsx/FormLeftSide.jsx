@@ -7,9 +7,9 @@ import {
   Snackbar,
   CircularProgress,
   Tooltip,
+  Grid2,
 } from "@mui/material";
 import { Send, Email, Phone, Person } from "@mui/icons-material";
-import { Grid2 } from "@mui/material";
 
 import useContactFormLogic from "../../hooks/useContactFormLogic";
 
@@ -19,12 +19,13 @@ export default function FormLeftSide() {
   return (
     <Box
       sx={{
-        padding: "25px",
-        maxWidth: "450px",
+        width: "100%",
+        maxWidth: 500,
+        padding: { xs: "15px", sm: "25px" },
         margin: "auto",
-        maxHeight: "550px",
         borderRadius: "10px",
         boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
+        backgroundColor: "#fff",
       }}
     >
       <Typography
@@ -41,7 +42,7 @@ export default function FormLeftSide() {
 
       <form onSubmit={formik.handleSubmit}>
         <Grid2 container direction="column" spacing={3}>
-          <Grid2 item>
+          <Grid2 item xs={12}>
             <Tooltip title="Enter your full name" arrow>
               <TextField
                 fullWidth
@@ -61,7 +62,7 @@ export default function FormLeftSide() {
             </Tooltip>
           </Grid2>
 
-          <Grid2 item>
+          <Grid2 item xs={12}>
             <Tooltip title="Enter a valid email address" arrow>
               <TextField
                 fullWidth
@@ -82,7 +83,7 @@ export default function FormLeftSide() {
             </Tooltip>
           </Grid2>
 
-          <Grid2 item>
+          <Grid2 item xs={12}>
             <Tooltip title="Enter your phone number" arrow>
               <TextField
                 fullWidth
@@ -103,7 +104,7 @@ export default function FormLeftSide() {
             </Tooltip>
           </Grid2>
 
-          <Grid2 item>
+          <Grid2 item xs={12}>
             <Tooltip title="Enter your message (minimum 10 characters)" arrow>
               <TextField
                 fullWidth
@@ -122,7 +123,7 @@ export default function FormLeftSide() {
             </Tooltip>
           </Grid2>
 
-          <Grid2 item>
+          <Grid2 item xs={12}>
             <Button
               type="submit"
               variant="contained"

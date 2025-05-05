@@ -1,6 +1,5 @@
 import { Box, Typography, IconButton } from "@mui/material";
 import { Email, LocationOn, PhoneCallback } from "@mui/icons-material";
-import { Navigate } from "react-router-dom";
 import FormLeftSide from "./FormLeftSide";
 
 const styles = {
@@ -33,7 +32,6 @@ function LeftSide() {
 function RightSide() {
   return (
     <>
-      {/* הוספת כותרת ייחודית לדף */}
       <head>
         <title>Contact Info | My Website</title>
       </head>
@@ -47,7 +45,6 @@ function RightSide() {
         </span>
         <br />
 
-        {/* טלפון */}
         <Box sx={{ display: "flex", alignItems: "center", marginTop: "30px" }}>
           <IconButton
             sx={{ color: "orange", marginRight: "10px" }}
@@ -58,7 +55,6 @@ function RightSide() {
           <Typography sx={{ color: "black" }}>0527051756</Typography>
         </Box>
 
-        {/* דוא"ל */}
         <Box sx={{ display: "flex", alignItems: "center", marginTop: "20px" }}>
           <IconButton
             sx={{ color: "orange", marginRight: "10px" }}
@@ -69,7 +65,6 @@ function RightSide() {
           <Typography sx={{ color: "black" }}>Freelance4U@email.com</Typography>
         </Box>
 
-        {/* כתובת */}
         <Box sx={{ display: "flex", alignItems: "center", marginTop: "20px" }}>
           <IconButton
             sx={{ color: "orange", marginRight: "10px" }}
@@ -97,7 +92,6 @@ function RightSide() {
   );
 }
 
-// הקומפוננטה הראשית
 export default function SectionInContactPage() {
   return (
     <Box sx={styles.container}>

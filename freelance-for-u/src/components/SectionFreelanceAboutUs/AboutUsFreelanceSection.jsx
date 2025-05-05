@@ -1,6 +1,5 @@
 import { Box, Typography } from "@mui/material";
 import { FaUsers, FaChartLine, FaBullhorn, FaHandshake } from "react-icons/fa";
-import FooterBar from "../../Footer/FooterBar";
 
 const services = [
   {
@@ -30,46 +29,45 @@ const services = [
 
 export default function AboutUsFreelanceSection() {
   return (
-    <>
-      <Box
-        sx={{
-          width: "1300px",
-          display: "flex",
-          gap: "1rem",
-          margin: "50px auto",
-          justifyContent: "center",
-        }}
-      >
-        {services.map((service, index) => (
-          <Box
-            key={index}
-            sx={{
-              width: 300,
-              height: 250,
-              background: "#F0F2F5",
-              borderRadius: "25px",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              padding: "20px",
-              textAlign: "center",
-              boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
-            }}
-          >
-            <Box sx={{ marginBottom: "10px" }}>{service.icon}</Box>
-            <Typography variant="h5" sx={{ fontWeight: "bold", color: "#333" }}>
-              {service.title}
-            </Typography>
-            <Typography
-              variant="body1"
-              sx={{ color: "#555", marginTop: "10px" }}
-            >
-              {service.description}
-            </Typography>
-          </Box>
-        ))}
-      </Box>
-    </>
+    <Box
+      sx={{
+        width: "100%",
+        maxWidth: "1300px",
+        margin: "50px auto",
+        display: "flex",
+        flexWrap: "wrap",
+        justifyContent: "center",
+        gap: "1.5rem",
+        padding: "0 1rem",
+      }}
+    >
+      {services.map((service, index) => (
+        <Box
+          key={index}
+          sx={{
+            width: { xs: "100%", sm: "45%", md: "300px" },
+            height: "250px",
+            background: "#F0F2F5",
+            borderRadius: "25px",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "20px",
+            textAlign: "center",
+            boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
+            flexShrink: 0,
+          }}
+        >
+          <Box sx={{ marginBottom: "10px" }}>{service.icon}</Box>
+          <Typography variant="h6" sx={{ fontWeight: "bold", color: "#333" }}>
+            {service.title}
+          </Typography>
+          <Typography variant="body2" sx={{ color: "#555", marginTop: "10px" }}>
+            {service.description}
+          </Typography>
+        </Box>
+      ))}
+    </Box>
   );
 }
