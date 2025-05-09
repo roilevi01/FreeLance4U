@@ -1,80 +1,111 @@
-# Freelance4U – Full Stack Freelancing Platform
+Freelance4U – Full Stack Freelancing Platform
 
-## 📖 Project Overview
+📖 Project Overview
 
 Freelance4U is a full-stack web application built for freelancers and businesses to create, showcase, and manage digital business cards. The platform includes user authentication (email/password and Google login), user management, card creation and editing, liking, commenting, and contact messaging.
 
 The application includes:
 
-* 🧠 JWT Authentication (including Google OAuth)
-* ✍️ Create, Read, Update, Delete (CRUD) operations on business cards
-* ❤️ Like system for cards
-* 💬 Comment section with role-based permissions
-* 📤 Image upload for user profiles
-* 📧 Contact form with email integration
-* 🛠 Background HostedService for periodic cleanup
-* 🧑‍💻 Admin dashboard for managing users and cards
-* 🌓 Dark mode toggle on login page
+🧠 JWT Authentication (including Google OAuth)
 
-## 🧰 Technologies Used
+✍️ Create, Read, Update, Delete (CRUD) operations on business cards
 
-### Client (React)
+❤️ Like system for cards
 
-* React
-* React Router DOM
-* MUI (Material UI)
-* Axios
-* Framer Motion
-* @react-oauth/google
+💬 Comment section with role-based permissions
 
-### Server (ASP.NET Core)
+📤 Image upload for user profiles
 
-* ASP.NET Core 8 Web API
-* Entity Framework Core + SQL Server
-* JWT Authentication
-* Google OAuth (Google.Apis.Auth)
-* SMTP Email (System.Net.Mail)
-* HostedService for background processing
+📧 Contact form with email integration
 
----
+🛠 Background HostedService for periodic cleanup
 
-## 🛠 Setup Instructions
+🧑‍💻 Admin dashboard for managing users and cards
 
-### 🔧 Prerequisites
+🌃 Dark mode toggle on login page
 
-* Node.js (v18+)
-* .NET SDK 8
-* SQL Server (LocalDB or full)
+🛠 Technologies Used
 
----
+Client (React)
 
-## ⚙️ Server Setup (`/Server` folder)
+React
 
-### 1. Restore packages
+React Router DOM
 
-```
+MUI (Material UI)
+
+Axios
+
+Framer Motion
+
+@react-oauth/google
+
+Server (ASP.NET Core)
+
+ASP.NET Core 8 Web API
+
+Entity Framework Core + SQL Server
+
+JWT Authentication
+
+Google OAuth (Google.Apis.Auth)
+
+SMTP Email (System.Net.Mail)
+
+HostedService for background processing
+
+🛠 Setup Instructions
+
+🔧 Prerequisites
+
+Node.js (v18+)
+
+.NET SDK 8
+
+SQL Server (LocalDB or full)
+
+⚙️ Server Setup (/Server folder)
+
+1. Restore packages
+
 dotnet restore
-```
 
-### 2. Run database migrations
+2. Run database migrations
 
-```
+🧠 Where to run this command?If you're using Visual Studio Code, Rider, or running from a terminal, open a terminal inside the /Server folder and run:
+
 dotnet ef database update
-```
 
-### 3. Required NuGet packages:
+💡 If you get an error like No executable found matching command "dotnet-ef", you need to install the EF CLI tool globally:
 
-* Microsoft.AspNetCore.Authentication.JwtBearer
-* Microsoft.EntityFrameworkCore.SqlServer
-* Microsoft.EntityFrameworkCore.Tools
-* Google.Apis.Auth
-* Microsoft.AspNetCore.Authentication.Google
+dotnet tool install --global dotnet-ef
 
-> Ensure `GoogleTokenRequest.cs` and `AuthController.cs` are present under `/Models` and `/Services` respectively.
+To update an existing installation:
 
-### 4. Update `appsettings.json`
+dotnet tool update --global dotnet-ef
 
-```
+✅ If you're using Visual Studio (Windows), you can alternatively run the same command inside the Package Manager Console (PMC).Make sure the Default Project selected in PMC is FreelanceApi.
+
+Example inside PMC:
+
+dotnet ef database update
+
+3. Required NuGet packages:
+
+Microsoft.AspNetCore.Authentication.JwtBearer
+
+Microsoft.EntityFrameworkCore.SqlServer
+
+Microsoft.EntityFrameworkCore.Tools
+
+Google.Apis.Auth
+
+Microsoft.AspNetCore.Authentication.Google
+
+Ensure GoogleTokenRequest.cs and AuthController.cs are present under /Models and /Services respectively.
+
+4. Update appsettings.json
+
 "ConnectionStrings": {
   "DefaultConnection": "<your-local-sql-server-connection>"
 },
@@ -82,77 +113,65 @@ dotnet ef database update
   "From": "<your_email>@gmail.com",
   "Password": "<app-specific-password>"
 }
-```
 
-> ✅ Make sure to enable less secure apps or use App Password from Google.
+✅ Make sure to enable less secure apps or use App Password from Google.
 
-### 5. Run the server
+5. Run the server
 
-```
 dotnet run
-```
 
-Server runs at: `http://localhost:5244`
+Server runs at: http://localhost:5244
 
----
+💻 Client Setup (/freelance-for-u folder)
 
-## 💻 Client Setup (`/freelance-for-u` folder)
+1. Install required libraries
 
-### 1. Install required libraries
-
-```
 npm install
-```
 
-### 2. Required npm packages:
+2. Required npm packages:
 
-* axios
-* react-router-dom
-* @mui/material @emotion/react @emotion/styled
-* framer-motion
-* @react-oauth/google
+axios
 
-### 3. Start the app
+react-router-dom
 
-```
+@mui/material @emotion/react @emotion/styled
+
+framer-motion
+
+@react-oauth/google
+
+3. Start the app
+
 npm start
-```
 
-Client runs at: `http://localhost:3000`
+Client runs at: http://localhost:3000
 
-### 🔁 Important for Instructors
+🔁 Important for Instructors
 
-> 📌 Inside `/src/Services/api.js`, update the base URL if testing from a different backend server:
+📌 Inside /src/Services/api.js, update the base URL if testing from a different backend server:
 
-```js
 baseURL: "http://localhost:5244/api"
-```
 
----
+🧪 Test Credentials
 
-## 🧪 Test Credentials
-
-```
 Email: test@gmail.com
 Password: 123456
-```
 
 Or use Google Login (with configured Google Client ID)
 
----
-
-## 🔐 Google OAuth Setup Reminder
+🔐 Google OAuth Setup Reminder
 
 Make sure you:
 
-* Created a Google OAuth client ID
-* Whitelisted `http://localhost:3000` in OAuth consent screen
-* Used the correct `clientId` in `<GoogleOAuthProvider>` in `Router.jsx`
+Created a Google OAuth client ID
 
----
+Whitelisted http://localhost:3000 in OAuth consent screen
 
-## 🙏 Special Note for Reviewers
+Used the correct clientId in <GoogleOAuthProvider> in Router.jsx
+
+🙏 Special Note for Reviewers
 
 This project was built with ❤️ as a final project for the Full Stack course. It demonstrates frontend/backend integration, authentication, animations, CRUD capabilities, admin control, background services, and third-party integration (OAuth + Email).
 
-Enjoy exploring Roi Levi 
+Enjoy exploring Roi Levi
+
