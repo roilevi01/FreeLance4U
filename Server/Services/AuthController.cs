@@ -29,11 +29,23 @@ namespace FreelanceApi.Services
         {
             var idToken = request.IdToken;
 
+            _logger.LogInformation("Received Google IdToken: {IdToken}", idToken);
+
+            if (string.IsNullOrWhiteSpace(idToken))
+            {
+                _logger.LogWarning("Empty or missing Google token.");
+                return BadRequest("Missing Google token.");
+            }
+
             try
             {
                 var payload = await GoogleJsonWebSignature.ValidateAsync(idToken);
+
                 if (payload == null)
+                {
+                    _logger.LogWarning("Google token validation failed: payload is null.");
                     return Unauthorized("Invalid Google token.");
+                }
 
                 var user = _context.Users.FirstOrDefault(u => u.Email == payload.Email);
 
@@ -45,8 +57,10 @@ namespace FreelanceApi.Services
                         Username = payload.Name,
                         Email = payload.Email,
                         Role = "User",
-                        ProfilePicture = payload.Picture ?? ""
+                        ProfilePicture = payload.Picture ?? "",
+                        PasswordHash = "" 
                     };
+
                     _context.Users.Add(user);
                     await _context.SaveChangesAsync();
                 }
@@ -58,9 +72,14 @@ namespace FreelanceApi.Services
                 var token = _authService.GenerateJwtToken(user.Id.ToString(), user.Role);
                 return Ok(new { token });
             }
+            catch (InvalidJwtException jwtEx)
+            {
+                _logger.LogError(jwtEx, "JWT validation failed.");
+                return Unauthorized("Invalid or expired Google token.");
+            }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Google login failed");
+                _logger.LogError(ex, "Google login failed due to an unexpected error.");
                 return BadRequest("Google authentication failed.");
             }
         }

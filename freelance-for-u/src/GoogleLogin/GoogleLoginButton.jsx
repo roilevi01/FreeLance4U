@@ -10,7 +10,7 @@ const GoogleLoginButton = () => {
     try {
       const res = await axios.post(
         "http://localhost:5244/api/auth/google",
-        { IdToken: response.credential }, // ✅ שליחה נכונה של הטוקן
+        { IdToken: response.credential },
         {
           headers: { "Content-Type": "application/json" },
         }
@@ -21,7 +21,6 @@ const GoogleLoginButton = () => {
       alert("Login successful!");
       navigate(ROUTES.ROOT);
     } catch (err) {
-      console.error("Google login failed", err);
       alert("Google login failed");
     }
   };
