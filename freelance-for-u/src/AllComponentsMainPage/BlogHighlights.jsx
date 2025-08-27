@@ -1,64 +1,91 @@
+import React from "react";
 import {
   Box,
+  Typography,
+  Grid,
   Card,
   CardContent,
   CardMedia,
-  Typography,
-  Grid,
+  Button,
 } from "@mui/material";
+import { motion } from "framer-motion";
+import "./styles/BlogHighlights.css";
 
 const blogPosts = [
   {
-    title: "5 Tips to Boost Your Freelancing Career",
+    title: "🚀 5 Tips to Boost Your Freelancing Career",
     excerpt:
-      "Discover actionable advice to grow your freelancing business and attract more clients.",
+      "Discover actionable strategies to grow your freelance business and land premium clients.",
     image: "https://images.unsplash.com/photo-1607746882042-944635dfe10e",
   },
   {
-    title: "Why Every Freelancer Needs a Portfolio Website",
+    title: "🌐 Why Every Freelancer Needs a Portfolio Website",
     excerpt:
-      "Learn how to build trust and showcase your skills with a professional portfolio.",
-    image: "https://images.unsplash.com/photo-1559027615-005c63f140ed",
+      "Build trust, showcase your expertise, and stand out in the global market.",
+    image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085",
   },
   {
-    title: "Top Skills in Demand for 2025",
+    title: "💡 Top Skills in Demand for 2025",
     excerpt:
-      "Stay ahead of the curve with the most sought-after skills for remote professionals.",
+      "Get ahead by learning the most wanted remote skills and future-proof your career.",
     image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c",
   },
 ];
 
 export default function BlogHighlights() {
   return (
-    <Box sx={{ py: 6, px: { xs: 2, md: 8 }, backgroundColor: "#f8f9fa" }}>
-      <Typography variant="h4" align="center" gutterBottom>
-        From Our Blog
-      </Typography>
-      <Typography align="center" color="textSecondary" mb={4}>
-        Stay informed with insights from industry leaders.
-      </Typography>
-      <Grid container spacing={4}>
-        {blogPosts.map((post, index) => (
-          <Grid item xs={12} md={4} key={index}>
-            <Card sx={{ height: "100%" }}>
-              <CardMedia
-                component="img"
-                height="160"
-                image={post.image}
-                alt={post.title}
-              />
-              <CardContent>
-                <Typography variant="h6" gutterBottom>
-                  {post.title}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {post.excerpt}
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
+    <Box className="bh2 section">
+      <div className="container">
+        <Typography variant="h3" align="center" className="bh2__title">
+          Insights Worth Reading
+        </Typography>
+        <div className="bh2__rule" />
+        <Typography align="center" className="bh2__subtitle">
+          Learn from real-world experience and elevate your freelancing career.
+        </Typography>
+
+        <Grid container spacing={4}>
+          {blogPosts.map((post, i) => (
+            <Grid item xs={12} md={4} key={i}>
+              <motion.div
+                whileHover={{ y: -3 }}
+                whileTap={{ scale: 0.99 }}
+                transition={{ type: "spring", stiffness: 220, damping: 18 }}
+              >
+                <Card className="bh2__card" elevation={0}>
+                  <div className="bh2__mediaWrap">
+                    <CardMedia
+                      component="img"
+                      image={post.image}
+                      alt={post.title}
+                      className="bh2__img"
+                      onError={(e) => {
+                        e.currentTarget.src =
+                          "https://images.unsplash.com/photo-1522202176988-66273c2fd55f";
+                      }}
+                    />
+                    <span className="bh2__tag">Article</span>
+                  </div>
+
+                  <CardContent className="bh2__content">
+                    <Typography variant="h6" className="bh2__heading">
+                      {post.title}
+                    </Typography>
+
+                    <Typography variant="body2" className="bh2__excerpt">
+                      {post.excerpt}
+                    </Typography>
+
+                    <Button size="medium" className="bh2__btn">
+                      Read More →
+                    </Button>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            </Grid>
+          ))}
+        </Grid>
+      </div>
     </Box>
   );
 }

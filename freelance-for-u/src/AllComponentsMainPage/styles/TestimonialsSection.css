@@ -1,0 +1,226 @@
+:root {
+  --brand-1: #06b6d4; /* cyan */
+  --brand-2: #3b82f6; /* blue */
+  --brand-3: #a78bfa; /* violet */
+
+  --ink-900: #0f172a;
+  --ink-700: #334155;
+  --ink-500: #64748b;
+
+  --radius-xl: 24px;
+
+  --shadow-1: 0 10px 24px rgba(2, 6, 23, 0.1);
+  --shadow-2: 0 18px 46px rgba(2, 6, 23, 0.16);
+
+  --ease: cubic-bezier(0.22, 0.8, 0.2, 1);
+}
+
+/* ===== Utilities (shared) ===== */
+.section {
+  padding: clamp(56px, 7vw, 110px) 0;
+}
+.container {
+  width: min(1200px, 92%);
+  margin-inline: auto;
+}
+.gradient-text {
+  background: linear-gradient(
+    90deg,
+    var(--brand-1),
+    var(--brand-2) 45%,
+    var(--brand-3)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes shimmer {
+  0% {
+    transform: translateX(-120%) skewX(-20deg);
+  }
+  100% {
+    transform: translateX(120%) skewX(-20deg);
+  }
+}
+
+/* ===== Section root ===== */
+.ts {
+  position: relative;
+  background: transparent;
+}
+
+/* ===== Headings ===== */
+.ts__title {
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  font-size: clamp(2rem, 4.6vw, 3rem);
+  margin: 0;
+  text-shadow: 1px 1px 2px rgba(203, 213, 225, 0.6);
+  animation: fadeUp 0.6s var(--ease) both;
+}
+.ts__rule {
+  width: 100px;
+  height: 6px;
+  margin: 12px auto 16px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--brand-2), var(--brand-1));
+}
+.ts__subtitle {
+  color: var(--ink-500);
+  max-width: 720px;
+  margin: 0 auto 30px;
+}
+
+/* ===== Grid ===== */
+.ts__grid {
+  margin-top: 6px;
+}
+
+/* ===== Card outer (conic border) ===== */
+.ts__outer {
+  padding: 2px;
+  border-radius: var(--radius-xl);
+  background: conic-gradient(
+    from 180deg at 50% 50%,
+    var(--brand-2),
+    var(--brand-3),
+    var(--brand-1),
+    var(--brand-2)
+  );
+}
+
+.ts__card {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  min-height: 280px;
+  padding: 26px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.96),
+    rgba(255, 255, 255, 0.9)
+  );
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-1);
+  transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.ts__card:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: var(--shadow-2);
+}
+
+.ts__shine {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.22) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  width: 40%;
+  animation: shimmer 2.8s linear infinite;
+}
+
+.ts__quoteIcon {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  font-size: 42px !important;
+  color: #e11d48 !important;
+  opacity: 0.18;
+  pointer-events: none;
+}
+
+.ts__header {
+  margin-bottom: 10px;
+}
+.ts__avatarWrap {
+  position: relative;
+  width: 76px;
+  height: 76px;
+  margin: 0 auto 8px;
+  border-radius: 50%;
+  padding: 2px;
+  background: conic-gradient(
+    from 180deg at 50% 50%,
+    var(--brand-2),
+    var(--brand-1),
+    var(--brand-3),
+    var(--brand-2)
+  );
+  box-shadow: 0 10px 24px rgba(2, 6, 23, 0.12);
+}
+.ts__avatar {
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 50%;
+  border: 3px solid #fff;
+}
+.ts__name {
+  font-weight: 900 !important;
+  color: var(--ink-900);
+  letter-spacing: 0.2px;
+}
+.ts__role {
+  color: var(--ink-500) !important;
+}
+
+.ts__feedback {
+  color: var(--ink-700);
+  font-style: italic;
+  line-height: 1.7;
+  margin-top: 6px;
+}
+
+.ts__ctaWrap {
+  text-align: center;
+  margin-top: 40px;
+}
+.ts__ctaBtn {
+  border-radius: 999px !important;
+  text-transform: none !important;
+  font-weight: 800 !important;
+  font-size: 1.05rem !important;
+  padding: 12px 28px !important;
+  background: linear-gradient(90deg, var(--brand-1), var(--brand-2)) !important;
+  box-shadow: 0 14px 30px rgba(37, 99, 235, 0.25) !important;
+}
+.ts__ctaBtn:hover {
+  transform: translateY(-1px);
+  background: linear-gradient(90deg, var(--brand-2), var(--brand-1)) !important;
+  box-shadow: 0 18px 42px rgba(37, 99, 235, 0.35) !important;
+}
+
+.ts__grid > *:nth-child(1) .ts__card {
+  animation: fadeUp 0.5s var(--ease) both 0.04s;
+}
+.ts__grid > *:nth-child(2) .ts__card {
+  animation: fadeUp 0.5s var(--ease) both 0.12s;
+}
+.ts__grid > *:nth-child(3) .ts__card {
+  animation: fadeUp 0.5s var(--ease) both 0.2s;
+}
+
+@media (max-width: 899px) {
+  .ts__card {
+    min-height: 260px;
+    padding: 22px;
+  }
+}

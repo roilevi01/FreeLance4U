@@ -2,7 +2,7 @@
   "name": "freelance-for-u",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:5244",
+  "proxy": "http://localhost:7012",
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",

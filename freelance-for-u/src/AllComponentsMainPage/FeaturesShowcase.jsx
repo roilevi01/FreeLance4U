@@ -1,49 +1,73 @@
-import { Box, Typography, Grid, Card, CardContent } from "@mui/material";
+import React from "react";
+import { Box, Typography, Grid } from "@mui/material";
 import { Code, DesignServices, SupportAgent } from "@mui/icons-material";
+import "./styles/FeaturesShowcase.css";
 
 const features = [
   {
-    icon: <Code fontSize="large" color="primary" />,
     title: "Custom Development",
-    description:
-      "Tailored software solutions built specifically for your business needs.",
+    description: "Tailored software solutions crafted exactly for your needs.",
+    icon: Code,
+    variant: "blue",
   },
   {
-    icon: <DesignServices fontSize="large" color="secondary" />,
     title: "Creative Design",
-    description: "Modern, responsive, and user-focused design services.",
+    description: "Modern, engaging and user-focused visual experiences.",
+    icon: DesignServices,
+    variant: "rose",
   },
   {
-    icon: <SupportAgent fontSize="large" color="success" />,
     title: "Ongoing Support",
     description:
-      "We’re here for you 24/7 with technical support and maintenance.",
+      "We’re here for you 24/7 to ensure your project runs smoothly.",
+    icon: SupportAgent,
+    variant: "mint",
   },
 ];
 
 const FeaturesShowcase = () => {
   return (
-    <Box p={5} bgcolor="#f9f9f9">
-      <Typography variant="h4" textAlign="center" gutterBottom>
-        What We Offer
-      </Typography>
-      <Grid container spacing={4} justifyContent="center">
-        {features.map((item, index) => (
-          <Grid item xs={12} sm={6} md={4} key={index}>
-            <Card sx={{ height: "100%", textAlign: "center", p: 2 }}>
-              <CardContent>
-                <Box mb={2}>{item.icon}</Box>
-                <Typography variant="h6" gutterBottom>
-                  {item.title}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {item.description}
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
+    <Box className="fs section">
+      <div className="container">
+        <Typography
+          variant="h3"
+          align="center"
+          className="fs__title gradient-text"
+        >
+          What We Offer
+        </Typography>
+        <div className="fs__rule" />
+        <Typography align="center" className="fs__subtitle">
+          A full-stack experience crafted for excellence.
+        </Typography>
+
+        <Grid container spacing={3} className="fs__grid">
+          {features.map((f, i) => {
+            const Icon = f.icon;
+            return (
+              <Grid item xs={12} md={4} key={f.title}>
+                <div className="fs__outer">
+                  <div className={`fs__card fs__card--${f.variant}`}>
+                    <div className="fs__shine" />
+                    <div className="fs__watermark">
+                      <Icon className="fs__wmIcon" />
+                    </div>
+
+                    <div className={`fs__icon fs__icon--${f.variant}`}>
+                      <div className="fs__iconCircle">
+                        <Icon className="fs__iconSymbol" />
+                      </div>
+                    </div>
+
+                    <h3 className="fs__heading">{f.title}</h3>
+                    <p className="fs__desc">{f.description}</p>
+                  </div>
+                </div>
+              </Grid>
+            );
+          })}
+        </Grid>
+      </div>
     </Box>
   );
 };

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Box, Grid } from "@mui/material";
 import ProfileImageUpload from "./ProfileImageUpload";
 import UserDetailsForm from "./UserDetailsForm";
@@ -25,31 +25,48 @@ export default function UserProfile() {
   });
 
   const currentUser = getCurrentUser();
+  const userId = currentUser?.id || null; 
+  const didInit = useRef(false);
+  const abortRef = useRef(null);
+
+  const fetchUserDetails = useCallback(async () => {
+    if (!userId) return;
+    try {
+      abortRef.current?.abort();
+      abortRef.current = new AbortController();
+
+      const res = await api.get(`/user/profile/${userId}`, {
+        signal: abortRef.current.signal,
+      });
+
+      setFormData((prev) => ({
+        ...prev,
+        username: res.data.username || "",
+        email: res.data.email || "",
+        profilePicture: res.data.profilePicture || "",
+      }));
+    } catch (err) {
+      if (err.name === "CanceledError" || err.code === "ERR_CANCELED") return;
+      setSnackbar({
+        open: true,
+        message: "Failed to load user data",
+        severity: "error",
+      });
+    }
+  }, [userId]);
 
   useEffect(() => {
-    const fetchUserDetails = async () => {
-      try {
-        const res = await api.get(`/user/profile/${currentUser.id}`);
-        setFormData((prev) => ({
-          ...prev,
-          username: res.data.username,
-          email: res.data.email,
-          profilePicture: res.data.profilePicture || "",
-        }));
-      } catch (err) {
-        setSnackbar({
-          open: true,
-          message: "Failed to load user data",
-          severity: "error",
-        });
-      }
-    };
-
-    if (currentUser?.id) fetchUserDetails();
-  }, [currentUser]);
+    if (!userId) return;
+    if (didInit.current && abortRef.current) {
+      return;
+    }
+    didInit.current = true;
+    fetchUserDetails();
+    return () => abortRef.current?.abort();
+  }, [userId, fetchUserDetails]);
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleImageUpload = (base64Image) => {
@@ -59,7 +76,7 @@ export default function UserProfile() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await api.put(`/user/update/${currentUser.id}`, formData);
+      await api.put(`/user/update/${userId}`, formData);
       setSnackbar({
         open: true,
         message: "Profile updated successfully",

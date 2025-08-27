@@ -1,5 +1,16 @@
-import { Box, Typography, TextField, Button } from "@mui/material";
-import { useState } from "react";
+import React, { useState } from "react";
+import {
+  Box,
+  Typography,
+  TextField,
+  Button,
+  InputAdornment,
+  Fade,
+  Zoom,
+} from "@mui/material";
+import EmailIcon from "@mui/icons-material/Email";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import "./styles/NewsletterSignup.css";
 
 export default function NewsletterSignup() {
   const [email, setEmail] = useState("");
@@ -7,67 +18,57 @@ export default function NewsletterSignup() {
 
   const handleSubscribe = (e) => {
     e.preventDefault();
-    if (email.trim()) {
-      setSubmitted(true);
-      setEmail("");
-    }
+    if (!email.trim()) return;
+    setSubmitted(true);
+    setTimeout(() => setSubmitted(false), 3500);
+    setEmail("");
   };
 
   return (
-    <Box
-      sx={{
-        backgroundColor: "#1e293b",
-        color: "#fff",
-        py: 6,
-        px: { xs: 3, md: 8 },
-        textAlign: "center",
-      }}
-    >
-      <Typography variant="h4" gutterBottom>
-        Stay in the Loop
-      </Typography>
-      <Typography variant="subtitle1" color="#cbd5e1" mb={3}>
-        Subscribe to our newsletter and never miss an update!
-      </Typography>
+    <Box className="nl section">
+      <div className="container">
+        <Zoom in timeout={800}>
+          <Typography variant="h3" align="center" className="nl__title">
+            Stay in the Loop 📬
+          </Typography>
+        </Zoom>
 
-      <Box
-        component="form"
-        onSubmit={handleSubscribe}
-        sx={{
-          display: "flex",
-          flexDirection: { xs: "column", sm: "row" },
-          justifyContent: "center",
-          alignItems: "center",
-          gap: 2,
-          maxWidth: 600,
-          mx: "auto",
-        }}
-      >
-        <TextField
-          type="email"
-          label="Your email"
-          variant="filled"
-          fullWidth
-          required
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          sx={{ backgroundColor: "#fff", borderRadius: 1 }}
-        />
-        <Button
-          type="submit"
-          variant="contained"
-          color="secondary"
-          sx={{ minWidth: 150 }}
-        >
-          Subscribe
-        </Button>
-      </Box>
-
-      {submitted && (
-        <Typography mt={2} color="lightgreen">
-          🎉 Thanks for subscribing!
+        <Typography align="center" className="nl__subtitle">
+          Join thousands getting the latest freelance insights delivered
+          monthly.
         </Typography>
-      )}
+
+        <Box component="form" onSubmit={handleSubscribe} className="nl__form">
+          <TextField
+            type="email"
+            label="Your email"
+            variant="outlined"
+            required
+            fullWidth
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="nl__field"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <EmailIcon className="nl__icon" />
+                </InputAdornment>
+              ),
+            }}
+          />
+
+          <Button type="submit" size="large" className="nl__btn">
+            Subscribe
+          </Button>
+        </Box>
+
+        <Fade in={submitted} timeout={400} unmountOnExit>
+          <Typography align="center" className="nl__success">
+            <CheckCircleIcon className="nl__successIcon" />
+            You’re now subscribed!
+          </Typography>
+        </Fade>
+      </div>
     </Box>
   );
 }

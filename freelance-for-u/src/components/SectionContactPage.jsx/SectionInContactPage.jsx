@@ -1,102 +1,140 @@
-import { Box, Typography, IconButton } from "@mui/material";
+import { Box, Typography, IconButton, Container } from "@mui/material";
 import { Email, LocationOn, PhoneCallback } from "@mui/icons-material";
 import FormLeftSide from "./FormLeftSide";
+import { motion } from "framer-motion";
 
-const styles = {
-  container: {
-    display: "flex",
-    height: "600px",
-  },
-  leftSide: {
-    flex: 1,
-
-    padding: "20px",
-  },
-  rightSide: {
-    flex: 1,
-  },
-  typography: {
-    fontFamily: "fantasy",
-    fontSize: "35px",
-  },
+const contactInfoRow = {
+  display: "flex",
+  alignItems: "center",
+  marginBottom: 3,
 };
 
-function LeftSide() {
-  return (
-    <Box sx={styles.leftSide}>
-      <FormLeftSide />
-    </Box>
-  );
-}
-
-function RightSide() {
-  return (
-    <>
-      <head>
-        <title>Contact Info | My Website</title>
-      </head>
-
-      <Box sx={styles.rightSide}>
-        <Typography sx={styles.typography}>Contact Info</Typography>
-        <span>
-          Please feel free to reach out to us through the contact form or via
-          email. We are here to help you with any questions or support you may
-          need!
-        </span>
-        <br />
-
-        <Box sx={{ display: "flex", alignItems: "center", marginTop: "30px" }}>
-          <IconButton
-            sx={{ color: "orange", marginRight: "10px" }}
-            aria-label="Phone Call"
-          >
-            <PhoneCallback />
-          </IconButton>
-          <Typography sx={{ color: "black" }}>0527051756</Typography>
-        </Box>
-
-        <Box sx={{ display: "flex", alignItems: "center", marginTop: "20px" }}>
-          <IconButton
-            sx={{ color: "orange", marginRight: "10px" }}
-            aria-label="Email"
-          >
-            <Email />
-          </IconButton>
-          <Typography sx={{ color: "black" }}>Freelance4U@email.com</Typography>
-        </Box>
-
-        <Box sx={{ display: "flex", alignItems: "center", marginTop: "20px" }}>
-          <IconButton
-            sx={{ color: "orange", marginRight: "10px" }}
-            aria-label="Location"
-          >
-            <LocationOn />
-          </IconButton>
-          <Typography sx={{ color: "black" }}>
-            Rehovot, Levi Eshkol 6, Israel
-          </Typography>
-        </Box>
-
-        <Box sx={{ marginTop: "20px" }}>
-          <iframe
-            width="80%"
-            height="250px"
-            src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=levi%20eshkol%20+(freelance4u)&amp;t=&amp;z=13&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
-            title="Google Maps - Location of Freelance4U"
-          >
-            <a href="https://www.gps.ie/">gps tracker sport</a>
-          </iframe>
-        </Box>
-      </Box>
-    </>
-  );
-}
+const textStyle = {
+  fontFamily: "Poppins",
+  color: "#2b2b2b",
+};
 
 export default function SectionInContactPage() {
   return (
-    <Box sx={styles.container}>
-      <LeftSide />
-      <RightSide />
+    <Box
+      sx={{
+        background: "linear-gradient(to right, #fefefe, #f9f9f9)",
+        py: { xs: 6, md: 8 },
+      }}
+    >
+      <Container maxWidth="lg">
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column", md: "row" },
+            borderRadius: "20px",
+            overflow: "hidden",
+            boxShadow: "0 10px 40px rgba(0,0,0,0.08)",
+            gap: { xs: 0, md: 25 },
+          }}
+        >
+          {/* Left Side – Form */}
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            style={{ flex: 1, display: "flex" }}
+          >
+            <Box
+              sx={{
+                background: "#ffffff",
+                p: { xs: 3, md: 5 },
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <FormLeftSide />
+            </Box>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            style={{ flex: 1, display: "flex" }}
+          >
+            <Box
+              sx={{
+                background: "#f5f5f5",
+                p: { xs: 3, md: 5 },
+                width: "100%",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+              }}
+            >
+              <Typography
+                variant="h3"
+                sx={{
+                  fontFamily: "Poppins",
+                  fontWeight: 700,
+                  color: "#dc6601",
+                  textAlign: "center",
+                  mb: 2,
+                }}
+              >
+                Let's Connect
+              </Typography>
+
+              <Typography
+                variant="body1"
+                sx={{
+                  ...textStyle,
+                  textAlign: "center",
+                  mb: 4,
+                  maxWidth: "90%",
+                  margin: "0 auto",
+                  color: "#555",
+                }}
+              >
+                Reach out to us directly or leave your message in the form –
+                we're always here to help.
+              </Typography>
+
+              <Box sx={contactInfoRow}>
+                <IconButton sx={{ color: "#dc6601", mr: 1 }}>
+                  <PhoneCallback />
+                </IconButton>
+                <Typography sx={textStyle}>052-705-1756</Typography>
+              </Box>
+
+              <Box sx={contactInfoRow}>
+                <IconButton sx={{ color: "#dc6601", mr: 1 }}>
+                  <Email />
+                </IconButton>
+                <Typography sx={textStyle}>Freelance4U@email.com</Typography>
+              </Box>
+
+              <Box sx={contactInfoRow}>
+                <IconButton sx={{ color: "#dc6601", mr: 1 }}>
+                  <LocationOn />
+                </IconButton>
+                <Typography sx={textStyle}>
+                  Rehovot, Levi Eshkol 6, Israel
+                </Typography>
+              </Box>
+
+              <Box sx={{ mt: 3 }}>
+                <iframe
+                  width="100%"
+                  height="230"
+                  style={{ borderRadius: "12px", border: "none" }}
+                  src="https://maps.google.com/maps?width=100%25&height=600&hl=en&q=levi%20eshkol%206%20rehovot+(Freelance4U)&t=&z=14&ie=UTF8&iwloc=B&output=embed"
+                  title="Google Map"
+                  loading="lazy"
+                ></iframe>
+              </Box>
+            </Box>
+          </motion.div>
+        </Box>
+      </Container>
     </Box>
   );
 }

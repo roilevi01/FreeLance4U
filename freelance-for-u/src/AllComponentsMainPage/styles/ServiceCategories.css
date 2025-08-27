@@ -1,0 +1,203 @@
+:root {
+  --brand-1: #3b82f6; 
+  --brand-2: #a78bfa; 
+  --brand-3: #22d3ee;
+
+  --ink-900: #0f172a;
+  --ink-700: #334155;
+  --ink-500: #64748b;
+
+  --radius-xl: 24px;
+
+  --shadow-1: 0 10px 24px rgba(2, 6, 23, 0.1);
+  --shadow-2: 0 18px 46px rgba(2, 6, 23, 0.16);
+
+  --ease: cubic-bezier(0.22, 0.8, 0.2, 1);
+}
+
+.section {
+  padding: clamp(56px, 7vw, 110px) 0;
+}
+.container {
+  width: min(1200px, 92%);
+  margin-inline: auto;
+}
+.gradient-text {
+  background: linear-gradient(
+    90deg,
+    var(--brand-1),
+    var(--brand-2) 50%,
+    var(--brand-3)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes shimmer {
+  0% {
+    transform: translateX(-120%) skewX(-20deg);
+  }
+  100% {
+    transform: translateX(120%) skewX(-20deg);
+  }
+}
+
+.sc {
+  position: relative;
+  background: transparent;
+}
+
+.sc__title {
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  font-size: clamp(2rem, 4.6vw, 3rem);
+  margin: 0;
+  text-shadow: 1px 1px 2px rgba(203, 213, 225, 0.6);
+  animation: fadeUp 0.6s var(--ease) both;
+}
+.sc__rule {
+  width: 96px;
+  height: 6px;
+  margin: 12px auto 16px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #3b82f6, #22d3ee);
+}
+.sc__subtitle {
+  color: var(--ink-500);
+  max-width: 720px;
+  margin: 0 auto 28px;
+  text-align: center;
+}
+
+
+.sc__grid {
+  margin-top: 8px;
+}
+
+.sc__outer {
+  padding: 2px;
+  border-radius: var(--radius-xl);
+  background: conic-gradient(
+    from 180deg at 50% 50%,
+    var(--brand-1),
+    var(--brand-2),
+    var(--brand-3),
+    var(--brand-1)
+  );
+}
+
+.sc__card {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  min-height: 260px;
+  padding: 28px;
+  box-shadow: var(--shadow-1);
+  transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+  animation: fadeUp 0.6s var(--ease) both;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.96),
+    rgba(255, 255, 255, 0.92)
+  );
+}
+.sc__card:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: var(--shadow-2);
+}
+
+.sc__card--blue {
+  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 60%, #93c5fd 100%);
+  color: #fff;
+}
+.sc__card--rose {
+  background: linear-gradient(135deg, #6d0f3d 0%, #ec4899 60%, #f9a8d4 100%);
+  color: #fff;
+}
+.sc__card--teal {
+  background: linear-gradient(135deg, #0f766e 0%, #14b8a6 60%, #99f6e4 100%);
+  color: #0b1a16;
+}
+.sc__card--amber {
+  background: linear-gradient(135deg, #78350f 0%, #d97706 60%, #fde68a 100%);
+  color: #231a0b;
+}
+
+.sc__shine {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.22) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  width: 40%;
+  animation: shimmer 2.8s linear infinite;
+}
+
+.sc__icon {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+.sc__iconCircle {
+  display: grid;
+  place-items: center;
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.38);
+  box-shadow: 0 10px 24px rgba(2, 6, 23, 0.25),
+    inset 0 0 0 2px rgba(255, 255, 255, 0.08);
+}
+.sc__iconSymbol {
+  font-size: 30px !important;
+  color: #ffffff;
+}
+
+.sc__heading {
+  margin: 8px 0 6px;
+  text-align: center;
+  font-weight: 900;
+  letter-spacing: 0.2px;
+}
+.sc__desc {
+  margin: 0;
+  text-align: center;
+  line-height: 1.6;
+  opacity: 0.95;
+}
+
+.sc__grid > *:nth-child(1) .sc__card {
+  animation-delay: 0.05s;
+}
+.sc__grid > *:nth-child(2) .sc__card {
+  animation-delay: 0.12s;
+}
+.sc__grid > *:nth-child(3) .sc__card {
+  animation-delay: 0.19s;
+}
+.sc__grid > *:nth-child(4) .sc__card {
+  animation-delay: 0.26s;
+}
+
+@media (max-width: 899px) {
+  .sc__card {
+    min-height: 240px;
+    padding: 22px;
+  }
+}
